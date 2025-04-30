@@ -8,17 +8,19 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
 
 @RunWith(Parameterized.class)
-public class DownListFirefoxTest {
+public class DownListTest {
     public WebDriver driver;
     private final int itemIndex;
     private final String expectedText;
+    private final String TEST_STAND = "https://qa-scooter.praktikum-services.ru/";
 
-    public DownListFirefoxTest(int itemIndex, String expectedText) {
+    public DownListTest(int itemIndex, String expectedText) {
         this.itemIndex = itemIndex;
         this.expectedText = expectedText;
     }
@@ -37,15 +39,10 @@ public class DownListFirefoxTest {
         };
     }
 
-    @Test
-    public void startUpChrome() {
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-    }
-
-    public void CheckingTheDropDownListTest() {
+    //метод, принимающий параметр driver и описывающий весь путь тестового сценария
+    private void checkingText(WebDriver driver) {
         //Открываем главную страницу
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(TEST_STAND);
 
         //локатор списка "Вопросы о важном"
         WebElement element = driver.findElement(By.xpath(
@@ -64,6 +61,22 @@ public class DownListFirefoxTest {
 
         // Проверка отображения соответствующего текста
         driver.findElement(By.xpath(".//p[text()='" + expectedText + "']")).isDisplayed();
+    }
+
+    @Test
+    public void CheckingTheDropDownListChromeTest() {
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        checkingText(driver);
+    }
+
+    @Test
+    public void CheckingTheDropDownListFirefoxTest() {
+        driver = new FirefoxDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        checkingText(driver);
     }
 
     @After

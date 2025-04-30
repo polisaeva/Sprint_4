@@ -5,7 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class OrderButtons {
+public class HomePage {
     private WebDriver driver;
 
     //локатор для кнопки "Заказать" вверху страницы
@@ -14,13 +14,13 @@ public class OrderButtons {
     // локатор для кнопки "Заказать" внизу страницы
     private By orderDown = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
 
-    public OrderButtons(WebDriver driver) {
+    public HomePage(WebDriver driver) {
         this.driver = driver;
     }
 
     //метод для клика по кнопке "Заказать" вверху страницы
     public void clickOrderUp() {
-         driver.findElement(orderUp).click();
+        driver.findElement(orderUp).click();
     }
 
     //метод для клика по кнопке "Заказать" внизу страницы
